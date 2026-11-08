@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glaxist Launcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide SVG Vector Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <!-- Saturn Planet Logo SVG -->
+        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="50" rx="42" ry="14" fill="none" stroke="currentColor" stroke-width="5" transform="rotate(-22 50 50)"/>
+          <circle cx="50" cy="50" r="22" fill="currentColor"/>
+        </svg>
+        <div class="brand-text">
+          <h2>Glaxist</h2>
+          <span class="version">v1.1.0</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-tab="instances">
+          <i data-lucide="layout-grid"></i> <span>INSTANCES</span>
+        </button>
+        <button class="nav-btn" data-tab="discover">
+          <i data-lucide="compass"></i> <span>DISCOVER</span>
+        </button>
+        <button class="nav-btn" data-tab="wardrobe">
+          <i data-lucide="shirt"></i> <span>WARDROBE</span>
+        </button>
+        <button class="nav-btn" data-tab="servers">
+          <i data-lucide="server"></i> <span>SERVERS</span>
+        </button>
+        <button class="nav-btn" data-tab="host">
+          <i data-lucide="radio"></i> <span>HOST SERVER</span>
+        </button>
+        <button class="nav-btn" data-tab="news">
+          <i data-lucide="newspaper"></i> <span>NEWS</span>
+        </button>
+        <button class="nav-btn" data-tab="settings">
+          <i data-lucide="sliders"></i> <span>SETTINGS</span>
+        </button>
+      </nav>
+
+      <div class="user-profile">
+        <i data-lucide="user"></i>
+        <div class="user-info">
+          <span class="username">Shylush</span>
+          <span class="status">● Offline Mode</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEWPORT CONTAINER -->
+    <main class="main-content">
+      
+      <!-- TOP ACTION BAR -->
+      <header class="top-bar">
+        <div class="search-box">
+          <i data-lucide="search"></i>
+          <input type="text" id="global-search" placeholder="Search (Ctrl+K)...">
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="check-updates-btn" title="Check GitHub Updates">
+            <i data-lucide="refresh-cw"></i>
+          </button>
+          <button class="icon-btn" title="Settings Shortcut" onclick="switchTab('settings')">
+            <i data-lucide="sliders"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: INSTANCES -->
+      <section id="tab-instances" class="tab-content active">
+        <div class="section-header">
+          <h3>YOUR INSTANCES</h3>
+          <button class="btn-primary"><i data-lucide="plus"></i> NEW INSTANCE</button>
+        </div>
+        <div class="instance-grid">
+          <div class="instance-card">
+            <div class="card-title"><i data-lucide="layers"></i> LolYouAll</div>
+            <span class="badge vanilla">VANILLA 1.21.1</span>
+            <p><i data-lucide="cpu"></i> Java 21 Auto • 4GB RAM</p>
+            <div class="card-actions">
+              <button title="Open Directory"><i data-lucide="folder"></i></button>
+              <button title="Instance Settings"><i data-lucide="settings"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: DISCOVER MARKETPLACE -->
+      <section id="tab-discover" class="tab-content">
+        <div class="discover-header">
+          <h3>CONTENT MARKETPLACE</h3>
+          <div class="sub-nav">
+            <button class="chip active" onclick="loadDiscoverContent('mods')">Mods</button>
+            <button class="chip" onclick="loadDiscoverContent('modpacks')">Modpacks</button>
+            <button class="chip" onclick="loadDiscoverContent('resourcepacks')">Resource Packs</button>
+            <button class="chip" onclick="loadDiscoverContent('maps')">World Maps</button>
+            <button class="chip" onclick="loadDiscoverContent('datapacks')">Datapacks</button>
+          </div>
+        </div>
+        <div id="discover-grid" class="market-grid">
+          <div class="loading-state">Select a category to query Modrinth, CurseForge & Planet Minecraft APIs...</div>
+        </div>
+      </section>
+
+      <!-- TAB 3: WARDROBE -->
+      <section id="tab-wardrobe" class="tab-content">
+        <h3>SKIN STUDIO & INJECTOR</h3>
+        <div class="wardrobe-panel">
+          <div class="skin-dropzone">
+            <i data-lucide="upload-cloud"></i>
+            <p>Drag & Drop Custom Skin (.PNG) Here</p>
+          </div>
+          <div class="skin-options">
+            <label><input type="checkbox" checked> Enable Singleplayer Skin Injection Hook</label>
+            <p class="help-text">Renders your skin natively in offline singleplayer worlds without Microsoft auth.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: CRACKED SERVERS -->
+      <section id="tab-servers" class="tab-content">
+        <h3>CRACKED SERVERS MARKETPLACE</h3>
+        <div class="server-section">
+          <h4>⭐ FEATURED CRACKED NETWORKS</h4>
+          <div id="featured-servers-grid" class="featured-grid"></div>
+        </div>
+        <div class="server-section">
+          <h4>🌐 UNLIMITED PUBLIC CRACKED LIST</h4>
+          <div id="public-servers-list" class="public-list"></div>
+        </div>
+      </section>
+
+      <!-- TAB 5: HOST SERVER -->
+      <section id="tab-host" class="tab-content">
+        <h3>LOCAL SERVER & TUNNEL ENGINE</h3>
+        <div class="host-container">
+          <div class="host-controls">
+            <button class="btn-primary"><i data-lucide="play"></i> START LOCAL PAPER CORE</button>
+            <label><input type="checkbox" checked> Enable Playit.gg Zero-Port Tunneling</label>
+          </div>
+          <div class="terminal-window">
+            <div class="terminal-line">[SYSTEM]: Host server engine ready.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: NEWS -->
+      <section id="tab-news" class="tab-content">
+        <h3>ANNOUNCEMENTS & NEWS</h3>
+        <div id="news-container" class="news-grid"></div>
+      </section>
+
+      <!-- TAB 7: SETTINGS -->
+      <section id="tab-settings" class="tab-content">
+        <h3>LAUNCHER CONFIGURATION</h3>
+        <div class="settings-form">
+          <div class="setting-item">
+            <label>Accent Color</label>
+            <select id="accent-selector">
+              <option value="#eab308">Cyber Yellow</option>
+              <option value="#a855f7">Neon Purple</option>
+              <option value="#06b6d4">Cyber Cyan</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label>Glassmorphism Blur: <span id="blur-val">16px</span></label>
+            <input type="range" min="0" max="32" value="16" id="blur-slider">
+          </div>
+        </div>
+      </section>
+
+      <!-- BOTTOM LAUNCH FOOTER -->
+      <footer class="launch-bar">
+        <div class="launch-info">
+          <i data-lucide="rocket"></i>
+          <span><strong>LolYouAll</strong> | VANILLA 1.21.1 | Java 21 Auto-Targeted</span>
+        </div>
+        <button id="play-btn" class="btn-play">
+          <i data-lucide="play"></i> PLAY
+        </button>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
