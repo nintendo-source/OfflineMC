@@ -1,0 +1,34 @@
+{
+  "name": "glaxist-launcher",
+  "version": "1.1.0",
+  "description": "Premium Cyber-Aesthetic Offline Minecraft Launcher",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "keywords": ["minecraft", "launcher", "glaxist", "electron"],
+  "author": "Glaxiblade",
+  "license": "MIT",
+  "dependencies": {
+    "extract-zip": "^2.0.1"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.glaxist.launcher",
+    "productName": "Glaxist Launcher",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "renderer/**/*"
+    ],
+    "win": {
+      "target": ["nsis", "portable"]
+    }
+  }
+}
